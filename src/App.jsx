@@ -5,10 +5,10 @@ import ContactForm from "./components/ContactForm/ContactForm";
 import SearchBox from "./components/SearchBox/SearchBox";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchContacts } from "./redux/contactsOps";
+import { fetchContacts } from "./redux/contacts/operations";
 import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
-import { selectError, selectLoading } from "./redux/selectors";
+import { selectError, selectLoading } from "./redux/contacts/selectors";
 
 const App = () => {
   const loading = useSelector(selectLoading);

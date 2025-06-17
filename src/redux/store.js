@@ -10,8 +10,9 @@ import { configureStore } from "@reduxjs/toolkit";
 //   REGISTER,
 // } from "redux-persist";
 // import storage from "redux-persist/lib/storage";
-import { contactsReducer } from "./contactsSlice";
-import { filterReducer } from "./filtersSlice";
+import { contactsReducer } from "./contacts/slice";
+import { filterReducer } from "./filters/slice";
+import { authReducer } from "./auth/slice";
 
 // const persistConfig = {
 //   key: "root",
@@ -22,7 +23,11 @@ import { filterReducer } from "./filtersSlice";
 // const persistedReducer = persistReducer(persistConfig, contactsReducer);
 
 export const store = configureStore({
-  reducer: { contacts: contactsReducer, filter: filterReducer },
+  reducer: {
+    contacts: contactsReducer,
+    filter: filterReducer,
+    auth: authReducer,
+  },
   // middleware: (getDefaultMiddleware) =>
   //   getDefaultMiddleware({
   //     serializableCheck: {
