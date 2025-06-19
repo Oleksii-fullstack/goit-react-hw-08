@@ -1,34 +1,24 @@
-import Section from "./components/Section/Section";
-import Container from "./components/Container/Container";
-import ContactList from "./components/ContactList/ContactList";
-import ContactForm from "./components/ContactForm/ContactForm";
-import SearchBox from "./components/SearchBox/SearchBox";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { fetchContacts } from "./redux/contacts/operations";
-import Loader from "./components/Loader/Loader";
-import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
-import { selectError, selectLoading } from "./redux/contacts/selectors";
+import { lazy, Suspense } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+const HomePage = lazy(() => import("./pages/HomePage"));
+const RegistrationPage = lazy(() => import("./pages/RegistrationPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const ContactsPage = lazy(() => import("./pages/ContactsPage"));
+import Layout from "./components/Layout/Layout";
 
 const App = () => {
-  const loading = useSelector(selectLoading);
-  const error = useSelector(selectError);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-
   return (
-    <Section>
-      <Container>
-        <ContactForm />
-        <SearchBox />
-        {!error && <ContactList />}
-        {loading && <Loader />}
-        {error && <ErrorMessage error={error} />}
-      </Container>
-    </Section>
+    <>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/register" element={<RegistrationPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/contacts" element={<ContactsPage />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </Layout>
+    </>
   );
 };
 

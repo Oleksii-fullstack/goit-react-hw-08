@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchLogin, fetchRegister, refreshUser } from "./operations";
+import { fetchLogin, fetchRegister, logOut } from "./operations";
 
 const authSlice = createSlice({
   name: "auth",
@@ -39,20 +39,28 @@ const authSlice = createSlice({
       .addCase(fetchLogin.rejected, (state) => {
         state.isLoading = false;
       })
-      .addCase(refreshUser.pending, (state) => {
-        // state.isLoading = true;
-      })
-      .addCase(refreshUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        // state.user = action.payload.user;
-        // state.token = action.payload.token;
-        // state.isLoggedIn = true;
-        // state.isRefreshing = true;
-      })
-      .addCase(refreshUser.rejected, (state) => {
-        // state.isLoading = false;
-        // state.isRefreshing = false;
+      .addCase(logOut.fulfilled, (state) => {
+        state.user = {
+          name: null,
+          email: null,
+        };
+        state.token = null;
+        state.isLoggedIn = false;
       });
+    // .addCase(refreshUser.pending, (state) => {
+    //   state.isLoading = true;
+    // })
+    // .addCase(refreshUser.fulfilled, (state, action) => {
+    //   state.isLoading = false;
+    //   state.user = action.payload.user;
+    //   state.token = action.payload.token;
+    //   state.isLoggedIn = true;
+    //   state.isRefreshing = true;
+    // })
+    // .addCase(refreshUser.rejected, (state) => {
+    //   state.isLoading = false;
+    //   state.isRefreshing = false;
+    // });
   },
 });
 
