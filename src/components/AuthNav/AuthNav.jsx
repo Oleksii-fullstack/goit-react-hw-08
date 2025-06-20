@@ -1,14 +1,14 @@
-import { NavLink } from "react-router-dom";
+import CustomNavLink from "../CustomNavLink/CustomNavLink";
 
 const AuthNav = () => {
   return (
     <div>
-      <ul>
+      <ul style={{ display: "flex", gap: "16px" }}>
         <li>
-          <NavLink to="/login">Log In</NavLink>
+          <CustomNavLink to="/login">Log In</CustomNavLink>
         </li>
         <li>
-          <NavLink to="/register">Register</NavLink>
+          <CustomNavLink to="/register">Register</CustomNavLink>
         </li>
       </ul>
     </div>

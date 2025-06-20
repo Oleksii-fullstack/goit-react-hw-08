@@ -1,0 +1,31 @@
+.link {
+  color: darkmagenta;
+  font-size: 24px;
+  font-weight: 700;
+
+  background: none;
+
+  text-transform: uppercase;
+
+  transition-property: color, background, transform;
+  transition-duration: 0.2s;
+  transition-timing-function: 0.25s cubic-bezier(0.7, 0.98, 0.86, 0.98);
+
+  transform: scale(0.9);
+
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+.active {
+  transform: scale(1);
+  background-color: #2908083c;
+  color: #fff;
+  box-shadow: rgba(147, 95, 196, 0.548);
+}
+
+.link:hover,
+.link:focus {
+  color: white;
+  background: rgba(148, 147, 147, 0.479);
+}

@@ -3,10 +3,17 @@ import { fetchRegister } from "../../redux/auth/operations";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { validationRegisterSchema } from "../../validation/validation";
 import toast from "react-hot-toast";
+import usePasswordToggle from "../../hooks/usePasswordToggle";
+import ToggleIcon from "../ToggleIcon/ToggleIcon";
 import s from "./RegistrationForm.module.css";
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
+
+  const [showPassword, setShowPassword] = usePasswordToggle([
+    "password",
+    "confirmPassword",
+  ]);
 
   const handleSubmit = async (values) => {
     try {
@@ -19,7 +26,12 @@ const RegistrationForm = () => {
   return (
     <div className={s.box}>
       <Formik
-        initialValues={{ name: "", email: "", password: "" }}
+        initialValues={{
+          name: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        }}
         onSubmit={handleSubmit}
         validationSchema={validationRegisterSchema}
       >
@@ -47,9 +59,31 @@ const RegistrationForm = () => {
               className={s.input}
               placeholder="Enter your password"
               name="password"
-              type={"password"}
+              type={showPassword.password ? "text" : "password"}
             />
             <ErrorMessage name="password" component="div" className={s.error} />
+            <ToggleIcon
+              onClick={() => setShowPassword("password")}
+              showPassword={showPassword.password}
+            />
+          </div>
+
+          <div className={s.fieldBox}>
+            <Field
+              className={s.input}
+              placeholder="Confirm your password"
+              name="confirmPassword"
+              type={showPassword.confirmPassword ? "text" : "password"}
+            />
+            <ErrorMessage
+              name="confirmPassword"
+              component="div"
+              className={s.error}
+            />
+            <ToggleIcon
+              onClick={() => setShowPassword("confirmPassword")}
+              showPassword={showPassword.confirmPassword}
+            />
           </div>
 
           <button className={s.button} type="submit">

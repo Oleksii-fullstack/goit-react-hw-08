@@ -13,7 +13,7 @@ const setAuthHeader = (token) => {
   instance.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
-const clearAuthHeader = (token) => {
+const clearAuthHeader = () => {
   instance.defaults.headers.common.Authorization = "";
 };
 
@@ -55,14 +55,21 @@ export const logOut = createAsyncThunk(
   }
 );
 
-// export const refreshUser = createAsyncThunk(
-//   "auth/refresh",
-//   async (_, { rejectWithValue }) => {
-//     try {
-//       const { data } = await instance.get("/users/current");
-//       return data;
-//     } catch (error) {
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
+export const refreshUser = createAsyncThunk(
+  "auth/refresh",
+  async (_, { rejectWithValue, getState }) => {
+    const state = getState();
+    // console.log(state);
+    const persistedToken = state.auth.token;
+    if (!persistedToken) {
+      return rejectWithValue("no token");
+    }
+    setAuthHeader(persistedToken);
+    try {
+      const { data } = await instance.get("/users/current");
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

@@ -1,0 +1,9 @@
+.iconBtn {
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  right: 2%;
+  top: 30%;
+  color: rgba(255, 255, 255, 0.54);
+  cursor: pointer;
+}
