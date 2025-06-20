@@ -5,7 +5,7 @@ import axios from "axios";
 // name: "Oleksi";
 // password: "1234Ol_1234@";
 
-const instance = axios.create({
+export const instance = axios.create({
   baseURL: "https://connections-api.goit.global",
 });
 
